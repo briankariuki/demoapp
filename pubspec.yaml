@@ -13,6 +13,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  provider: ^4.3.2+3
+  flutter_svg: ^0.18.1
+  cached_network_image: ^2.3.2+1
 
   cupertino_icons: ^1.0.0
 

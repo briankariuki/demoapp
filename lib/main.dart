@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:demoapp/config/palette.dart';
 import 'package:demoapp/config/theme.dart';
+import 'package:demoapp/screens/screens.dart';
 import 'package:demoapp/widgets/widgets.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -71,10 +72,15 @@ class MyHomePage extends StatelessWidget {
                   MainButton(
                     color: Colors.white.withOpacity(0.25),
                     textColor: Colors.white,
-                    height: 48.0,
+                    height: 52.0,
                     title: "Explore",
                     minWidth: screenWidth / 2,
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => NavScreen()),
+                      );
+                    },
                   ),
                 ],
               ),
