@@ -55,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
             bottom: PreferredSize(
               preferredSize: Size.fromHeight(50.0),
               child: Container(
-                margin: EdgeInsets.symmetric(horizontal: 16.0),
+                margin: EdgeInsets.only(left: 16.0, right: 16.0, bottom: 10.0),
                 padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),
                 decoration: BoxDecoration(
                   color: Palette.gray7,
@@ -84,12 +84,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
               ),
-            ),
-          ),
-          SliverPadding(
-            padding: EdgeInsets.symmetric(vertical: 12.0),
-            sliver: SliverToBoxAdapter(
-              child: Text("here ${listings.length}"),
             ),
           ),
           SliverList(

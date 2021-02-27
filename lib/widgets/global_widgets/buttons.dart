@@ -85,7 +85,7 @@ class MainIconButton extends StatelessWidget {
           children: [
             icon,
             const SizedBox(
-              width: 10.0,
+              width: 16.0,
             ),
             Text(
               title,

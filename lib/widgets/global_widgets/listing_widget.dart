@@ -22,14 +22,15 @@ class ListingWidget extends StatelessWidget {
       children: [
         CachedNetworkImage(
           imageUrl: listing.imageUrl,
-          height: screenHeight / 2.5,
+          height: screenHeight / 3,
           width: screenWidth,
           fit: BoxFit.cover,
         ),
         Container(
+          color: Colors.white,
           padding: EdgeInsets.symmetric(
             horizontal: 16.0,
-            vertical: 12.0,
+            vertical: 24.0,
           ),
           child: Column(
             children: [
