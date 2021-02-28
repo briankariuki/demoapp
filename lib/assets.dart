@@ -12,4 +12,8 @@ class Assets {
   static const String userCircle = '${_icons}user-circle.svg';
   static const String location = '${_icons}location-marker.svg';
   static const String phone = '${_icons}phone-outgoing.svg';
+  static const String check = '${_icons}check.svg';
+  static const String clock = '${_icons}clock.svg';
+  static const String clipBoardCheck = '${_icons}clipboard-check.svg';
+  static const String badgeCheck = '${_icons}badge-check.svg';
 }

@@ -20,11 +20,14 @@ class ListingWidget extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
     return Column(
       children: [
-        CachedNetworkImage(
-          imageUrl: listing.imageUrl,
-          height: screenHeight / 3,
-          width: screenWidth,
-          fit: BoxFit.cover,
+        Hero(
+          tag: 'imageHero',
+          child: CachedNetworkImage(
+            imageUrl: listing.imageUrl,
+            height: screenHeight / 3,
+            width: screenWidth,
+            fit: BoxFit.cover,
+          ),
         ),
         Container(
           color: Colors.white,
@@ -113,12 +116,7 @@ class ListingWidget extends StatelessWidget {
                       width: 20.0,
                       height: 20.0,
                     ),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => NavScreen()),
-                      );
-                    },
+                    onTap: () {},
                   ),
                   MainIconButton(
                     color: Palette.primary,
