@@ -8,6 +8,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class HomeScreen extends StatefulWidget {
+  final Function onPush;
+
+  const HomeScreen({
+    Key key,
+    this.onPush,
+  }) : super(key: key);
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }

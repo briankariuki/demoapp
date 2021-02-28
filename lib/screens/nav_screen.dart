@@ -1,5 +1,6 @@
 import 'package:demoapp/assets.dart';
 import 'package:demoapp/config/palette.dart';
+import 'package:demoapp/models/models.dart';
 import 'package:demoapp/screens/screens.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -22,6 +23,20 @@ class NavScreen extends StatefulWidget {
 }
 
 class _NavScreenState extends State<NavScreen> {
+  List<Widget> widgetList = [
+    HomeScreen(),
+    Scaffold(),
+    Scaffold(),
+    Scaffold(),
+  ];
+
+  List<GlobalKey<NavigatorState>> _navigatorKeys = [
+    GlobalKey<NavigatorState>(),
+    GlobalKey<NavigatorState>(),
+    GlobalKey<NavigatorState>(),
+    GlobalKey<NavigatorState>(),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -30,16 +45,39 @@ class _NavScreenState extends State<NavScreen> {
         builder: (context) {
           return Consumer<NavScreenProvider>(
             builder: (context, provider, child) {
-              return DefaultTabController(
-                length: 4,
+              return WillPopScope(
+                onWillPop: () async {
+                  final isFirstRouteInCurrentTab =
+                      !await _navigatorKeys[provider.selectedIndex]
+                          .currentState
+                          .maybePop();
+
+                  if (isFirstRouteInCurrentTab) {
+                    if (provider.selectedIndex != 0) {
+                      if (0 == provider.selectedIndex) {
+                        _navigatorKeys[0]
+                            .currentState
+                            .popUntil((route) => route.isFirst);
+                      } else {
+                        provider.setSelectedIndex(0);
+                      }
+                      return false;
+                    }
+
+                    return isFirstRouteInCurrentTab;
+                  }
+                },
                 child: Scaffold(
-                  body: IndexedStack(
-                    index: provider.selectedIndex,
+                  body: Stack(
                     children: [
-                      HomeScreen(),
-                      Scaffold(),
-                      Scaffold(),
-                      Scaffold(),
+                      _buildOffstageNavigator(
+                          index: 0, selectedIndex: provider.selectedIndex),
+                      _buildOffstageNavigator(
+                          index: 1, selectedIndex: provider.selectedIndex),
+                      _buildOffstageNavigator(
+                          index: 2, selectedIndex: provider.selectedIndex),
+                      _buildOffstageNavigator(
+                          index: 3, selectedIndex: provider.selectedIndex),
                     ],
                   ),
                   bottomNavigationBar: Material(
@@ -58,7 +96,13 @@ class _NavScreenState extends State<NavScreen> {
                       child: CustomNavigationBar(
                         selectedIndex: provider.selectedIndex,
                         onTap: (int value) {
-                          provider.setSelectedIndex(value);
+                          if (value == provider.selectedIndex) {
+                            _navigatorKeys[value]
+                                .currentState
+                                .popUntil((route) => route.isFirst);
+                          } else {
+                            provider.setSelectedIndex(value);
+                          }
                         },
                       ),
                     ),
@@ -68,6 +112,16 @@ class _NavScreenState extends State<NavScreen> {
             },
           );
         },
+      ),
+    );
+  }
+
+  Widget _buildOffstageNavigator({int index, int selectedIndex}) {
+    return Offstage(
+      offstage: selectedIndex != index,
+      child: MainNavigator(
+        navigatorKey: _navigatorKeys[index],
+        widget: widgetList[index],
       ),
     );
   }
@@ -184,5 +238,31 @@ class _NavbarIconButton extends StatelessWidget {
       ),
       onPressed: onTap,
     );
+  }
+}
+
+class MainNavigatorRoutes {
+  static const String root = '/';
+  static const String detail = '/detail';
+}
+
+class MainNavigator extends StatelessWidget {
+  final GlobalKey<NavigatorState> navigatorKey;
+  final Widget widget;
+
+  const MainNavigator({
+    Key key,
+    this.navigatorKey,
+    this.widget,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Navigator(
+        key: navigatorKey,
+        initialRoute: MainNavigatorRoutes.root,
+        onGenerateRoute: (routeSettings) {
+          return MaterialPageRoute(builder: (context) => widget);
+        });
   }
 }
