@@ -133,12 +133,7 @@ class ListingWidget extends StatelessWidget {
                       width: 20.0,
                       height: 20.0,
                     ),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => NavScreen()),
-                      );
-                    },
+                    onTap: () {},
                   ),
                 ],
               )

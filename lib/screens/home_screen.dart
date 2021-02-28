@@ -2,6 +2,7 @@ import 'package:demoapp/assets.dart';
 import 'package:demoapp/config/palette.dart';
 import 'package:demoapp/data/listing_data.dart';
 import 'package:demoapp/models/models.dart';
+import 'package:demoapp/screens/screens.dart';
 import 'package:demoapp/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -90,10 +91,18 @@ class _HomeScreenState extends State<HomeScreen> {
             delegate: SliverChildBuilderDelegate(
               (context, index) {
                 final Listing listingItem = listings[index];
-                return ListingWidget(
-                  listing: listingItem,
-                  // playerElementFixtureItem: playerElementFixtureItem,
-                  // screenWidth: widget.screenWidth,
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => ListingScreen()),
+                    );
+                  },
+                  child: ListingWidget(
+                    listing: listingItem,
+                    // playerElementFixtureItem: playerElementFixtureItem,
+                    // screenWidth: widget.screenWidth,
+                  ),
                 );
               },
               childCount: listings.length,
