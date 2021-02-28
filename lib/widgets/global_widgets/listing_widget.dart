@@ -21,7 +21,7 @@ class ListingWidget extends StatelessWidget {
     return Column(
       children: [
         Hero(
-          tag: 'imageHero',
+          tag: listing.imageUrl,
           child: CachedNetworkImage(
             imageUrl: listing.imageUrl,
             height: screenHeight / 3,
@@ -116,7 +116,45 @@ class ListingWidget extends StatelessWidget {
                       width: 20.0,
                       height: 20.0,
                     ),
-                    onTap: () {},
+                    onTap: () {
+                      showGeneralDialog(
+                        barrierLabel: "Label",
+                        barrierDismissible: true,
+                        barrierColor: Colors.black.withOpacity(0.85),
+                        transitionDuration: Duration(milliseconds: 100),
+                        context: context,
+                        pageBuilder: (context, anim1, anim2) {
+                          return Align(
+                            alignment: Alignment.center,
+                            child: Material(
+                              type: MaterialType.transparency,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  SendRequestPopup(
+                                    listing: listing,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                        transitionBuilder: (context, anim1, anim2, child) {
+                          return FadeTransition(
+                            opacity: Tween(begin: 0.0, end: 1.0)
+                                .chain(CurveTween(curve: Curves.ease))
+                                .animate(anim1),
+                            child: ScaleTransition(
+                              scale: Tween(begin: 1.1, end: 1.0)
+                                  .chain(
+                                      CurveTween(curve: Curves.fastOutSlowIn))
+                                  .animate(anim1),
+                              child: child,
+                            ),
+                          );
+                        },
+                      );
+                    },
                   ),
                   MainIconButton(
                     color: Palette.primary,

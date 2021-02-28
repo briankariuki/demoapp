@@ -34,12 +34,12 @@ class _ListingScreenState extends State<ListingScreen> {
             backgroundColor: Colors.white,
             automaticallyImplyLeading: false,
             elevation: 0.0,
-            expandedHeight: 200.0,
+            expandedHeight: 240.0,
             pinned: true,
             leading: IconButton(
               icon: SvgPicture.asset(
                 Assets.arrowLeft,
-                color: Palette.black,
+                color: Palette.primary,
                 semanticsLabel: 'Arrow back',
                 width: 24.0,
                 height: 24.0,
@@ -49,14 +49,60 @@ class _ListingScreenState extends State<ListingScreen> {
             flexibleSpace: Stack(
               children: [
                 Hero(
-                  tag: "imageHero",
+                  tag: widget.listing.imageUrl,
                   child: CachedNetworkImage(
                     imageUrl: widget.listing.imageUrl,
-                    height: screenHeight / 3,
+                    height: 300.0,
                     width: screenWidth,
                     fit: BoxFit.cover,
                   ),
                 ),
+                Positioned(
+                  top: 0,
+                  bottom: 0,
+                  left: 8,
+                  child: Container(
+                    margin: EdgeInsets.only(top: 24.0),
+                    child: IconButton(
+                      color: Colors.white,
+                      icon: CircleAvatar(
+                        radius: 14.0,
+                        backgroundColor: Colors.white,
+                        child: SvgPicture.asset(
+                          Assets.arrowLeft,
+                          color: Palette.black,
+                          semanticsLabel: 'Arrow back',
+                          width: 16.0,
+                          height: 16.0,
+                        ),
+                      ),
+                      onPressed: () {},
+                    ),
+                  ),
+                ),
+                Positioned(
+                  top: 0,
+                  bottom: 0,
+                  right: 8,
+                  child: Container(
+                    margin: EdgeInsets.only(top: 24.0),
+                    child: IconButton(
+                      color: Colors.white,
+                      icon: CircleAvatar(
+                        radius: 14.0,
+                        backgroundColor: Colors.white,
+                        child: SvgPicture.asset(
+                          Assets.arrowRight,
+                          color: Palette.black,
+                          semanticsLabel: 'Arrow forward',
+                          width: 16.0,
+                          height: 16.0,
+                        ),
+                      ),
+                      onPressed: () {},
+                    ),
+                  ),
+                )
               ],
             ),
           ),
@@ -70,7 +116,7 @@ class _ListingScreenState extends State<ListingScreen> {
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -141,8 +187,11 @@ class _ListingScreenState extends State<ListingScreen> {
                                 Theme.of(context).textTheme.headline3.copyWith(
                                       color: Palette.primary,
                                       fontWeight: FontWeight.w600,
-                                      fontSize: 24.0,
+                                      fontSize: 20.0,
                                     ),
+                          ),
+                          const SizedBox(
+                            height: 3.0,
                           ),
                           Row(
                             children: [
@@ -203,7 +252,45 @@ class _ListingScreenState extends State<ListingScreen> {
                           width: 20.0,
                           height: 20.0,
                         ),
-                        onTap: () {},
+                        onTap: () {
+                          showGeneralDialog(
+                            barrierLabel: "Label",
+                            barrierDismissible: true,
+                            barrierColor: Colors.black.withOpacity(0.85),
+                            transitionDuration: Duration(milliseconds: 100),
+                            context: context,
+                            pageBuilder: (context, anim1, anim2) {
+                              return Align(
+                                alignment: Alignment.center,
+                                child: Material(
+                                  type: MaterialType.transparency,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      SendRequestPopup(
+                                        listing: widget.listing,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            },
+                            transitionBuilder: (context, anim1, anim2, child) {
+                              return FadeTransition(
+                                opacity: Tween(begin: 0.0, end: 1.0)
+                                    .chain(CurveTween(curve: Curves.ease))
+                                    .animate(anim1),
+                                child: ScaleTransition(
+                                  scale: Tween(begin: 1.1, end: 1.0)
+                                      .chain(CurveTween(
+                                          curve: Curves.fastOutSlowIn))
+                                      .animate(anim1),
+                                  child: child,
+                                ),
+                              );
+                            },
+                          );
+                        },
                       ),
                       MainIconButton(
                         color: Palette.primary,

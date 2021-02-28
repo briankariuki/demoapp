@@ -12,7 +12,6 @@ final ThemeData appTheme = ThemeData(
       fontSize: 16.0,
       fontFamily: "Inter",
       fontWeight: FontWeight.w700,
-      letterSpacing: 1,
     ),
     headline2: TextStyle(
       fontFamily: "Poppins",

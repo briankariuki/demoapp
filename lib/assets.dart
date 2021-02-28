@@ -8,6 +8,7 @@ class Assets {
   static const String plusCircle = '${_icons}plus-circle.svg';
   static const String chat = '${_icons}chat-alt.svg';
   static const String arrowLeft = '${_icons}arrow-narrow-left.svg';
+  static const String arrowRight = '${_icons}arrow-narrow-right.svg';
   static const String shoppingCart = '${_icons}shopping-cart.svg';
   static const String userCircle = '${_icons}user-circle.svg';
   static const String location = '${_icons}location-marker.svg';
@@ -16,4 +17,5 @@ class Assets {
   static const String clock = '${_icons}clock.svg';
   static const String clipBoardCheck = '${_icons}clipboard-check.svg';
   static const String badgeCheck = '${_icons}badge-check.svg';
+  static const String successArt = '${_images}success.svg';
 }
