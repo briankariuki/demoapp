@@ -41,6 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
             backgroundColor: Colors.white,
             automaticallyImplyLeading: false,
             elevation: 0.0,
+            collapsedHeight: 70.0,
             pinned: true,
             leading: IconButton(
               icon: SvgPicture.asset(
@@ -63,32 +64,49 @@ class _HomeScreenState extends State<HomeScreen> {
             bottom: PreferredSize(
               preferredSize: Size.fromHeight(50.0),
               child: Container(
-                margin: EdgeInsets.only(left: 16.0, right: 16.0, bottom: 10.0),
-                padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),
                 decoration: BoxDecoration(
-                  color: Palette.gray7,
-                  borderRadius: BorderRadius.circular(6.0),
-                  border: Border.all(
-                    width: 0.5,
-                    color: Palette.gray4,
+                  color: Colors.white,
+                  border: Border(
+                    bottom: BorderSide(
+                      width: 0.8,
+                      color: Colors.black.withOpacity(0.16),
+                    ),
+                    top: BorderSide(
+                      width: 0.8,
+                      color: Colors.black.withOpacity(0.16),
+                    ),
                   ),
                 ),
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    icon: SvgPicture.asset(
-                      Assets.search,
+                child: Container(
+                  margin: EdgeInsets.only(
+                      left: 16.0, right: 16.0, bottom: 10.0, top: 10.0),
+                  padding:
+                      EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),
+                  decoration: BoxDecoration(
+                    color: Palette.gray7,
+                    borderRadius: BorderRadius.circular(6.0),
+                    border: Border.all(
+                      width: 0.5,
                       color: Palette.gray4,
-                      semanticsLabel: 'Seaarch Outline',
-                      width: 24.0,
-                      height: 24.0,
                     ),
-                    border: InputBorder.none,
-                    hintText: 'Search',
-                    hintStyle: Theme.of(context).textTheme.bodyText2.copyWith(
-                          fontSize: 16.0,
-                          fontWeight: FontWeight.w500,
-                          color: Palette.gray3,
-                        ),
+                  ),
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      icon: SvgPicture.asset(
+                        Assets.search,
+                        color: Palette.gray4,
+                        semanticsLabel: 'Seaarch Outline',
+                        width: 24.0,
+                        height: 24.0,
+                      ),
+                      border: InputBorder.none,
+                      hintText: 'Search',
+                      hintStyle: Theme.of(context).textTheme.bodyText2.copyWith(
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.w500,
+                            color: Palette.gray3,
+                          ),
+                    ),
                   ),
                 ),
               ),
